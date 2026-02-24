@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UNIFAL · Astronomia investigativa | Extensão</title>
+  <!-- Font & Icons (Font Awesome via CDN) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(145deg, #03050a 0%, #121827 100%);
+      color: #eef2fb;
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* --- APENAS A IMAGEM ANEXO (BANNER PURO) --- */
+    .hero-banner-only {
+      width: 100%;
+      min-height: 92vh; /* ocupa quasi tudo, só espaço pros botões flutuantes */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: 
+        linear-gradient(0deg, rgba(2, 6, 20, 0.7), rgba(10, 20, 40, 0.5)),
+        url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNjAwIiBoZWlnaHQ9IjkwMCIgdmlld0JveD0iMCAwIDE2MDAgOTAwIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMGIxYzI4Ii8+PHBhdGggZD0iTTAgMjUwIEwxNjAwIDUwIEwxNjAwIDQwMCBMMCA2MDBaIiBmaWxsPSIjMjAzYzUwIiBvcGFjaXR5PSIwLjMiLz48Y2lyY2xlIGN4PSIxMjAwIiBjeT0iMjAwIiByPSI4MCIgZmlsbD0iI2ZmZWM4MCIvPjxjaXJjbGUgY3g9IjUwMCIgY3k9IjUwMCIgcj0iMTUiIGZpbGw9IiNmZmZmZmYiLz48Y2lyY2xlIGN4PSI4MDAiIGN5PSI2MDAiIHI9IjUiIGZpbGw9IiNlZmYzZmYiLz48Y2lyY2xlIGN4PSIxMTAwIiBjeT0iNzAwIiByPSI4IiBmaWxsPSIjZmZlYzUwIi8+PCEtLSBzaW11bGHDp8OjbyBkZSBjw6l1IGVzdHJlbGFkbyAtLT48L3N2Zz4=') center/cover no-repeat;
+      border-bottom: 5px solid #f5b342;
+    }
+
+    /* Moldura exatamente igual à imagem fornecida (texto puro) */
+    .banner-text-pure {
+      max-width: 1000px;
+      padding: 2.5rem 3rem;
+      background: rgba(0, 0, 0, 0.55);
+      backdrop-filter: blur(5px);
+      border-radius: 48px 12px 48px 12px;
+      border: 2px solid rgba(245, 180, 66, 0.5);
+      box-shadow: 0 30px 50px rgba(0,0,0,0.7);
+    }
+
+    .banner-text-pure h1 {
+      font-size: clamp(3rem, 10vw, 5.5rem);
+      font-weight: 800;
+      line-height: 1.1;
+      background: linear-gradient(135deg, #ffe893, #ffcd7e, #ffffff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 40px #f5b24280;
+      margin-bottom: 0.5rem;
+    }
+
+    .banner-text-pure h1 span {
+      display: block;
+      font-size: clamp(2rem, 6vw, 3.5rem);
+    }
+
+    .banner-text-pure p {
+      font-size: 1.8rem;
+      letter-spacing: 2px;
+      color: #ead6b0;
+      font-weight: 400;
+      margin: 1rem 0 0.5rem;
+    }
+
+    .banner-text-pure .subtools {
+      font-size: 1.3rem;
+      color: #bfd4ff;
+      word-spacing: 8px;
+      margin-bottom: 2rem;
+      border-top: 1px dashed #f5b342;
+      padding-top: 1rem;
+      display: inline-block;
+    }
+
+    .banner-text-pure .unifal-footer-banner {
+      font-size: 1.6rem;
+      font-weight: 600;
+      background: #003366cc;
+      display: inline-block;
+      padding: 0.5rem 2.5rem;
+      border-radius: 60px;
+      border-left: 6px solid #f5b342;
+      margin-top: 1rem;
+      color: white;
+    }
+
+    /* --- BOTÕES FLUTUANTES (navbar moderna) IGUAL AO ORIGINAL --- */
+    .navbar-floating {
+      position: sticky;
+      bottom: 2rem;  /* flutua perto do fim da tela */
+      top: auto;
+      z-index: 1000;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem 1.8rem;
+      background: rgba(12, 20, 35, 0.8);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      padding: 1rem 2.2rem;
+      margin: 0 2rem 2rem 2rem;
+      border-radius: 80px;
+      border: 1px solid #4b6382;
+      box-shadow: 0 20px 30px -5px #000000cc;
+      width: fit-content;
+      max-width: 95%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .navbar-floating a {
+      color: #f0f3fa;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.15rem;
+      padding: 0.6rem 1.2rem;
+      border-radius: 40px;
+      transition: 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .navbar-floating a i {
+      color: #f5b342;
+      font-size: 1.3rem;
+    }
+
+    .navbar-floating a:hover {
+      background: #1f3755;
+      transform: scale(1.04);
+    }
+
+    .navbar-floating a.active-nav {
+      background: #2f4b78;
+      box-shadow: 0 0 0 2px #f5b342;
+    }
+
+    /* --- CONTEÚDO DINÂMICO (abre abaixo dos botões) --- */
+    .dynamic-content {
+      max-width: 1400px;
+      margin: 0 auto 3rem auto;
+      padding: 0 5% 2rem;
+      width: 100%;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0.3; transform: translateY(10px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* seções internas (reaproveitamos os cards originais) */
+    .section-title {
+      font-size: 2.3rem;
+      margin: 2rem 0 1.5rem;
+      border-left: 10px solid #f5b342;
+      padding-left: 1.5rem;
+      background: linear-gradient(90deg, #1f2b42, transparent);
+    }
+
+    .grid-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .card {
+      background: rgba(20, 30, 48, 0.8);
+      backdrop-filter: blur(8px);
+      border: 1px solid #3d506e;
+      border-radius: 32px 12px 32px 12px;
+      padding: 1.8rem 1.5rem;
+      transition: 0.25s ease;
+      box-shadow: 0 25px 40px -15px black;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      border-color: #f5b342;
+      background: #162437;
+    }
+
+    .card i {
+      font-size: 3rem;
+      color: #f5b342;
+      margin-bottom: 1rem;
+    }
+
+    .badge {
+      background: #00355e;
+      padding: 0.3rem 1rem;
+      border-radius: 30px;
+      font-size: 0.9rem;
+      border: 1px solid #4f699b;
+      display: inline-block;
+      margin: 0.2rem;
+    }
+
+    .cronograma-wrapper {
+      background: #0e1628;
+      border-radius: 30px;
+      padding: 2rem;
+      border: 1px solid #2f4172;
+    }
+
+    .encontro-item {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid #25344f;
+    }
+
+    .encontro-item:last-child { border-bottom: none; }
+
+    .encontro-data {
+      min-width: 120px;
+      font-weight: 700;
+      color: #f5b342;
+      font-size: 1.3rem;
+    }
+
+    .form-inscricao {
+      background: linear-gradient(145deg, #0b1424, #101b30);
+      padding: 2.5rem;
+      border-radius: 40px 12px 40px 12px;
+      margin: 3rem 0;
+      border: 1px solid #b68b40;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.8rem;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .input-group label {
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: #fbdd9d;
+    }
+
+    .input-group input, .input-group select {
+      background: #1e2a3a;
+      border: 1px solid #3e5570;
+      border-radius: 50px;
+      padding: 0.9rem 1.5rem;
+      color: white;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    .btn {
+      background: #f5b342;
+      color: #0b1424;
+      font-weight: 800;
+      border: none;
+      padding: 1rem 2.8rem;
+      border-radius: 60px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: 0.2s;
+      width: fit-content;
+    }
+
+    footer {
+      background: #030813;
+      padding: 2rem 2rem 1rem;
+      margin-top: 2rem;
+      border-top: 3px solid #b68b40;
+      text-align: center;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    /* responsividade */
+    @media (max-width: 700px) {
+      .navbar-floating a { font-size: 0.9rem; padding: 0.4rem 0.8rem; }
+      .banner-text-pure h1 { font-size: 3rem; }
+      .banner-text-pure p { font-size: 1.3rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- SOMENTE A IMAGEM COM O TEXTO EXATO DO ANEXO (sem menus, sem nada) -->
+<section class="hero-banner-only">
+  <div class="banner-text-pure">
+    <h1>
+      ASTRONOMIA<br><span>INVESTIGATIVA E OBSERVACIONAL</span>
+    </h1>
+    <p>Do Experimental ao Digital</p>
+    <div class="subtools">Gnômon · Relógios de Sol · Cruzeiro do Sul · Astrolábio · Órbitas</div>
+    <div class="unifal-footer-banner">UNIFAL-MG | Campus Santa Clara · Alfenas</div>
+  </div>
+</section>
+
+<!-- BOTÕES FLUTUANTES (EXATAMENTE OS MESMOS, mantidos) -->
+<nav class="navbar-floating">
+  <a class="nav-btn" data-target="sobre"><i class="fas fa-rocket"></i> Sobre</a>
+  <a class="nav-btn" data-target="cronograma"><i class="fas fa-calendar-alt"></i> Cronograma</a>
+  <a class="nav-btn" data-target="ementa"><i class="fas fa-atlas"></i> Ementa</a>
+  <a class="nav-btn" data-target="aparatos"><i class="fas fa-tools"></i> Aparatos</a>
+  <a class="nav-btn" data-target="atividades"><i class="fas fa-moon"></i> Observacionais</a>
+  <a class="nav-btn" data-target="inscricao"><i class="fas fa-pen"></i> Inscrição</a>
+</nav>
+
+<!-- CONTEÚDO DINÂMICO (abre abaixo dos botões) -->
+<div class="dynamic-content" id="dynamic-content">
+  <!-- por padrão, nada (pode ficar vazio) -->
+</div>
+
+<footer class="hidden" id="global-footer">
+  <!-- só aparece se algum conteúdo for carregado, mas mantemos rodapé global escondido? 
+       Melhor: deixar footer sempre visível mas com pouco destaque, a pedido: não mudar nada -->
+  <div class="footer-logos" style="display:flex; justify-content:center; gap:2rem; opacity:0.9;">
+    <i class="fas fa-telescope"></i>
+    <span>UNIFAL – Universidade Federal de Alfenas</span>
+    <i class="fas fa-meteor"></i>
+  </div>
+  <div class="copyright">
+    <p>© 2026 Curso de Extensão · Prof. Luciano Soares Pedroso · observatorio@unifal-mg.edu.br</p>
+  </div>
+</footer>
+
+<!-- templates de cada seção (cópias do código original) -->
+<div style="display: none;" id="template-sobre">
+  <div class="section-title">🔭 Sobre o curso</div>
+  <div class="card" style="padding: 2rem;">
+    <p style="font-size: 1.2rem;" align="justify">Curso presencial com práticas investigativas e observacionais no Observatório Astronômico da UNIFAL – campus Santa Clara. Desenvolvido para professores, estudantes e entusiastas. Uso de simuladores EVS 
+	+ Astro3D + Stellarium + construção de aparatos históricos.</p>
+    <p align="justify"><strong>📌 Público-alvo:</strong> Professoras e 
+	professores de Ciências, Física, Geografia e Comunidade Acadêmica.   <strong>📍 Início:</strong> 09/04/2026 · 14h–17h · 14 encontros</p>
+    <p align="justify"><i class="fas fa-globe" style="color:#f5b342;"></i> Inclui atividades noturnas de observação com telescópio e planejamento com 
+	software livre Stellarium.</p>
+  </div>
+</div>
+
+<div style="display: none;" id="template-cronograma">
+  <div class="section-title">📅 CRONOGRAMA · 14 ENCONTROS (ABR A JUL/2026)</div>
+  <div class="cronograma-wrapper">
+    <div class="encontro-item"><div class="encontro-data">09/04 · #1</div><div class="encontro-tema"><h4>Astronomia aqui na Terra – Orientação e Sol</h4> <div class="encontro-aparatos"><span class="badge"><i class="fas fa-sun"></i> Gnômon experimental</span><span class="badge"><i class="fas fa-sim-card"></i> Simuladores Astro3D/EVS</span><span class="badge">Stellarium latitude 21°S</span></div></div></div>
+    <div class="encontro-item"><div class="encontro-data">16/04 · #2</div><div class="encontro-tema"><h4>Tempo Solar e Relógios de Sol</h4> <div class="encontro-aparatos"><span class="badge">
+		Relógio do Sol - Equação do tempo - Uso de EVS</span></div></div></div>
+    <div class="encontro-item"><div class="encontro-data">23/04 · #3</div><div class="encontro-tema"><h4>Céu do Hemisfério Sul</h4> <div class="encontro-aparatos"><span class="badge">Planisfério rotativo 20°S</span><span class="badge">Mapas EVS / Astro3D</span><span class="badge">Cruzeiro do Sul (Stellarium)DC</span></div></div></div>
+    <div class="encontro-item"><div class="encontro-data">30/04 · #4</div><div class="encontro-tema"><h4>Relógio do Cruzeiro do Sul</h4> <div class="encontro-aparatos"><span class="badge">Modelo físico angular</span><span class="badge">Simulação EVS rotação</span></div></div></div>
+    <div class="encontro-item"><div class="encontro-data">07/05 · #5</div><div class="encontro-tema"><h4>Astrometria – paralaxe e medida angular</h4><div class="encontro-aparatos"><span class="badge">Astrolábio/quadrante</span><span class="badge">Paralaxe EVS</span></div></div></div>
+    <div class="encontro-item"><div class="encontro-data">14/05 · #6</div><div class="encontro-tema"><h4>Terra: Inclinação e Estações</h4><div class="encontro-aparatos"><span class="badge">Globo iluminado</span><span class="badge">Insolação EVS</span></div></div></div>
+    <div class="encontro-item"><div class="encontro-data">21/05 · #7</div><div class="encontro-tema"><h4>Órbitas Planetárias (Kepler)</h4><div class="encontro-aparatos"><span class="badge">Elipse com linha/pregos</span><span class="badge">Simulador leis EVS</span></div></div></div>
+    <div class="encontro-item"><div class="encontro-data">28/05 · #8</div><div class="encontro-tema"><h4>Escalas e Volumes</h4><div class="encontro-aparatos"><span class="badge">Massinha + tinta</span><span class="badge">Comparador digital</span></div></div></div>
+    <div class="encontro-item"><div class="encontro-data">04/06 · #9</div><div class="encontro-tema"><h4>Fases da Lua</h4><div class="encontro-aparatos"><span class="badge">Modelo 3D Terra–Lua–Sol</span><span class="badge">Simulador fases EVS</span></div></div></div>
+    <div class="encontro-item"><div class="encontro-data">11/06 · #10</div><div class="encontro-tema"><h4>Eclipses</h4><div class="encontro-aparatos"><span class="badge">Tubo 1,2m + esferas</span><span class="badge">Simulador EVS eclipses</span></div></div></div>
+    <div class="encontro-item"><div class="encontro-data">18/06 · #11</div><div class="encontro-tema"><h4>Telescópios</h4><div class="encontro-aparatos"><span class="badge">Refrator simples (lentes)</span><span class="badge">Simulação óptica EVS</span></div></div></div>
+    <div class="encontro-item"><div class="encontro-data">25/06 · #12</div><div class="encontro-tema"><h4>Observação noturna (Observatório)</h4><div class="encontro-aparatos"><span class="badge">Planejamento Stellarium</span></div></div></div>
+    <div class="encontro-item"><div class="encontro-data">02/07 · #13</div><div class="encontro-tema"><h4>Galáxias e estrutura</h4><div class="encontro-aparatos"><span class="badge">Modelo espiral</span><span class="badge">Redshift (EVS)</span></div></div></div>
+    <div class="encontro-item"><div class="encontro-data">09/07 · #14</div><div class="encontro-tema"><h4>Integração final – produção didática</h4></div></div>
+  </div>
+</div>
+
+<div style="display: none;" id="template-ementa">
+  <div class="section-title">📘 Ementa · Fundamentos e Práticas</div>
+  <div class="grid-cards">
+    <div class="card"><i class="fas fa-compass"></i><h3>Orientação</h3>
+		<p align="justify">Pontos cardeais, gnômon, linha N-S, azimute, simuladores de trajetória solar (EVS).</p></div>
+    <div class="card"><i class="fas fa-clock"></i><h3>Tempo solar</h3>
+		<p align="justify">Relógios horizontal/equatorial, equação do tempo, fuso horário, longitude.</p></div>
+    <div class="card"><i class="fas fa-star"></i><h3>Céu austral</h3>
+		<p align="justify">Planisfério 20°S, Cruzeiro do Sul, precessão, tempo sideral.</p></div>
+    <div class="card"><i class="fas fa-ruler"></i><h3>Astrometria</h3>
+		<p align="justify">Astrolábio artesanal, paralaxe, medidas angulares com Stellarium.</p></div>
+    <div class="card"><i class="fas fa-globe-americas"></i><h3>Estações & órbitas</h3>
+		<p align="justify">Inclinação eixo, Leis de Kepler, construção de elipses 
+		.</p></div>
+    <div class="card"><i class="fas fa-moon"></i><h3>Lua & eclipses</h3>
+		<p align="justify">Fases, modelo 3D, simulador de eclipses,&nbsp; 
+		inclinação.</p></div>
+  </div>
+</div>
+
+<div style="display: none;" id="template-aparatos">
+  <div class="section-title">⚙️ Aparatos experimentais construídos</div>
+  <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom:2rem;">
+    <span class="badge" style="font-size:1.1rem; padding:0.6rem 1.5rem;">1. Planisfério 20°S</span>
+    <span class="badge" style="font-size:1.1rem; padding:0.6rem 1.5rem;">2. Relógio horizontal</span>
+    <span class="badge" style="font-size:1.1rem; padding:0.6rem 1.5rem;">3. Relógio equatorial</span>
+    <span class="badge" style="font-size:1.1rem; padding:0.6rem 1.5rem;">4. Relógio do Cruzeiro</span>
+    <span class="badge" style="font-size:1.1rem; padding:0.6rem 1.5rem;">5. Astrolábio/quadrante</span>
+    <span class="badge" style="font-size:1.1rem; padding:0.6rem 1.5rem;">6. Telescópio refrator</span>
+    <span class="badge" style="font-size:1.1rem; padding:0.6rem 1.5rem;">7. Espectroscópio caseiro</span>
+    <span class="badge" style="font-size:1.1rem; padding:0.6rem 1.5rem;">8. Modelo Terra–Sol–Lua</span>
+    <span class="badge" style="font-size:1.1rem; padding:0.6rem 1.5rem;">9. Órbitas (elipse com linha)</span>
+    <span class="badge" style="font-size:1.1rem; padding:0.6rem 1.5rem;">10. Volumes planetários (massinha)</span>
+    <span class="badge" style="font-size:1.1rem; padding:0.6rem 1.5rem;">11. Simulador eclipses (tubo+isopor)</span>
+  </div>
+  <p class="card" style="background:#1b2337" align="center"><i class="fas fa-drafting-compass" style="color:#f5b342;"></i> Todos os aparatos acompanham roteiros investigativos e simulações digitais (EVS, Astro3D, Stellarium).</p>
+</div>
+
+<div style="display: none;" id="template-atividades">
+  <div class="section-title">🔭 Atividades observacionais & Stellarium</div>
+  <div class="grid-cards">
+    <div class="card"><i class="fas fa-saturn"></i><h3 align="justify">Noites no Observatório</h3>
+		<p align="justify">Sessões com telescópio, identificação de planetas, aglomerados, Via Láctea. Uso do Stellarium para planejamento.</p></div>
+    <div class="card"><i class="fas fa-chart-line"></i><h3 align="justify">Medições reais</h3>
+		<p align="justify">Altura do Cruzeiro, azimute, paralaxe simulada, comparação com dados de software.</p></div>
+    <div class="card"><i class="fas fa-eclipse"></i><h3 align="justify">Simulação de eclipses</h3>
+		<p align="justify">Previsão com Stellarium de eclipses futuros. e 
+		demonstrção de Eclipses famosos.</p></div>
+  </div>
+</div>
+
+<div style="display: none;" id="template-inscricao">
+  <div class="section-title">✍️ Inscrição para o curso de Extensão (vagas limitadas)</div>
+  <div class="form-inscricao">
+    <form id="inscForm" onsubmit="event.preventDefault(); alert('Inscrição simulada enviada (modo demonstração).');">
+      <div class="form-grid">
+        &nbsp;</div>
+      <button class="btn" type="submit">
+		<a target="_blank" href="https://forms.gle/dqzakMz5cw2fBLdf8">Realizar inscrição</a></button>
+    </form>
+  </div>
+</div>
+
+<script>
+  (function() {
+    const contentDiv = document.getElementById('dynamic-content');
+    const navBtns = document.querySelectorAll('.nav-btn');
+    const footer = document.getElementById('global-footer');
+
+    // templates
+    const templates = {
+      sobre: document.getElementById('template-sobre').innerHTML,
+      cronograma: document.getElementById('template-cronograma').innerHTML,
+      ementa: document.getElementById('template-ementa').innerHTML,
+      aparatos: document.getElementById('template-aparatos').innerHTML,
+      atividades: document.getElementById('template-atividades').innerHTML,
+      inscricao: document.getElementById('template-inscricao').innerHTML
+    };
+
+    function loadSection(sectionId) {
+      if (templates[sectionId]) {
+        contentDiv.innerHTML = templates[sectionId];
+        // garante que footer apareça (já está visível globalmente, mas deixa)
+        footer.classList.remove('hidden');
+      } else {
+        contentDiv.innerHTML = ''; // vazio
+      }
+
+      // atualizar classe active nos botões
+      navBtns.forEach(btn => {
+        const target = btn.getAttribute('data-target');
+        if (target === sectionId) {
+          btn.classList.add('active-nav');
+        } else {
+          btn.classList.remove('active-nav');
+        }
+      });
+    }
+
+    // adicionar eventos
+    navBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = btn.getAttribute('data-target');
+        loadSection(target);
+      });
+    });
+
+    // começar com a seção "sobre" para não ficar vazio (opcional: pode deixar vazio)
+    loadSection('sobre');
+  })();
+</script>
+
+<!-- footer já estava visível no HTML, mas estava com hidden class? removi hidden dele, deixar sempre visível -->
+</body>
+</html>
